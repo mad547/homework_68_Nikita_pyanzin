@@ -5,13 +5,30 @@ from articles.models import BaseModel
 
 
 class Comment(BaseModel):
-    article = models.ForeignKey('articles.Article', related_name='comments', on_delete=models.CASCADE,
-                                verbose_name='Статья')
-    text = models.TextField(max_length=400, verbose_name='Комментарий')
-    author = models.CharField(max_length=40, null=True, blank=True, default='Аноним', verbose_name='Автор')
+    article = models.ForeignKey(
+        'articles.Article',
+        related_name='comments',
+        on_delete=models.CASCADE,
+        verbose_name='Статья'
+    )
+    text = models.TextField(
+        max_length=400,
+        verbose_name='Комментарий'
+    )
+    author = models.CharField(
+        max_length=40,
+        null=True,
+        blank=True,
+        default='Аноним',
+        verbose_name='Автор'
+    )
+    likes_count = models.PositiveIntegerField(
+        default=0,
+        verbose_name='Количество лайков'
+    )
 
     def __str__(self):
         return self.text[:20]
 
     def get_absolute_url(self):
-        return reverse("detail", kwargs={"pk": self.article.pk})
+        return reverse("articles:detail", kwargs={"pk": self.article.pk})

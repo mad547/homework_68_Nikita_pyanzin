@@ -36,6 +36,10 @@ class Article(BaseModel):
         default=status_choices[0][0],
         verbose_name="Статус"
     )
+    likes_count = models.PositiveIntegerField(
+        default=0,
+        verbose_name='Количество лайков'
+    )
     tags = models.ManyToManyField(
         "articles.Tag",
         related_name="articles",
