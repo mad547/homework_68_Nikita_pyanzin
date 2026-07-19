@@ -30,13 +30,6 @@
                         </div>
                         <div class="d-flex justify-content-between align-items-center me-3 mb-2">
                             {% if request.user.is_authenticated %}
-                                <button
-                                    class="btn btn-sm btn-outline-danger like-btn"
-                                    data-url="{% url 'articles:article-like' article.pk %}"
-                                    data-liked="{{ article.likes.filter(user=request.user).exists }}"
-                                    onclick="event.preventDefault()">
-                                    ♥ <span class="likes-count">{{ article.likes_count }}</span>
-                                </button>
                             {% else %}
                                 <span>♥ {{ article.likes_count }}</span>
                             {% endif %}

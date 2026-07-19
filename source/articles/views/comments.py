@@ -1,5 +1,4 @@
 from django.shortcuts import get_object_or_404
-from django.urls import reverse
 from django.views.generic import CreateView
 
 from articles.forms import CommentForm
