@@ -4,7 +4,11 @@ from django.urls import reverse
 from articles.models import BaseModel
 
 
-status_choices = [('new', 'Новая'), ('approved', 'Одобрено'),  ('Return_for_revision', 'Отправлено на доработку')]
+status_choices = [
+    ('new', 'Новая'),
+    ('approved', 'Одобрено'),
+    ('Return_for_revision', 'Отправлено на доработку')
+]
 
 
 class Article(BaseModel):
@@ -26,14 +30,6 @@ class Article(BaseModel):
         blank=False,
         verbose_name="Автор"
     )
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-        verbose_name="дата создания"
-    )
-    updated_at = models.DateTimeField(
-        auto_now=True,
-        verbose_name="Дата редактирования"
-    )
     status = models.CharField(
         max_length=25,
         choices=status_choices,
@@ -52,13 +48,14 @@ class Article(BaseModel):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse("articles:detail", kwargs={"pk": self.pk})
+
     class Meta:
         db_table = "Article"
         verbose_name = "Статья"
         verbose_name_plural = "Статьи"
 
-    def get_absolute_url(self):
-        return reverse("detail", kwargs={"pk": self.pk})
 
 class ArticleTag(BaseModel):
     article = models.ForeignKey(
