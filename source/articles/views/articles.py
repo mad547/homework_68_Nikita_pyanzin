@@ -2,10 +2,8 @@ from urllib.parse import urlencode
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
-from django.shortcuts import get_object_or_404, redirect
-from django.urls import reverse, reverse_lazy
-from django.views import View
-from django.views.generic import FormView, ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from articles.forms import ArticleForm, SimpleSearchForm, ArticleDeleteForm
 from articles.models import Article
@@ -34,7 +32,6 @@ class ArticleListView(ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-
         if self.search_value:
             queryset = queryset.filter(
                 Q(title__icontains=self.search_value) | Q(author__icontains=self.search_value)
@@ -44,12 +41,10 @@ class ArticleListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['search_form'] = self.form
-
         if self.search_value:
             context['query'] = urlencode({"search": self.search_value})
             context['search_value'] = self.search_value
         return context
-
 
 
 class ArticleDetailView(DetailView):
@@ -58,7 +53,7 @@ class ArticleDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['comments'] = self.object.comments.filter(author='asdqwe')
+        context['comments'] = self.object.comments.all()
         return context
 
 
@@ -71,10 +66,7 @@ class ArticleUpdateView(UpdateView):
     template_name = "articles/article_update.html"
     form_class = ArticleForm
     model = Article
-    # queryset = Article.objects.all()
 
-    # def get_success_url(self):
-    #     return reverse("detail", kwargs={"pk": self.object.pk})
 
 class ArticleDeleteView(DeleteView):
     template_name = "articles/delete_confirm.html"
@@ -84,12 +76,6 @@ class ArticleDeleteView(DeleteView):
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-
         if self.request.method == 'POST':
             kwargs['instance'] = self.object
         return kwargs
-
-    # def post(self, request, *args, **kwargs):
-    #     article = get_object_or_404(Article, pk=self.kwargs.get('pk'))
-    #     article.delete()
-    #     return redirect("list")
