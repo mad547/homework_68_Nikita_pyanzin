@@ -44,6 +44,11 @@ class ArticleListView(ListView):
         if self.search_value:
             context['query'] = urlencode({"search": self.search_value})
             context['search_value'] = self.search_value
+        if self.request.user.is_authenticated:
+            liked_ids = set(
+                self.request.user.article_likes.values_list('article_id', flat=True)
+            )
+            context['liked_ids'] = liked_ids
         return context
 
 
@@ -54,6 +59,14 @@ class ArticleDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['comments'] = self.object.comments.all()
+        if self.request.user.is_authenticated:
+            context['article_liked'] = self.object.likes.filter(
+                user=self.request.user
+            ).exists()
+            liked_comment_ids = set(
+                self.request.user.comment_likes.values_list('comment_id', flat=True)
+            )
+            context['liked_comment_ids'] = liked_comment_ids
         return context
 
 

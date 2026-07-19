@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from articles.models import Article, Tag, ArticleTag
+from articles.models import Article, Tag, ArticleTag, Comment, ArticleLike, CommentLike
 
 
 class ArticleAdmin(admin.ModelAdmin):
@@ -10,6 +10,10 @@ class ArticleAdmin(admin.ModelAdmin):
     fields = ['title', 'author', 'content', 'created_at', 'updated_at']
     readonly_fields = ['created_at', 'updated_at']
 
+
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Tag)
 admin.site.register(ArticleTag)
+admin.site.register(Comment)
+admin.site.register(ArticleLike)
+admin.site.register(CommentLike)

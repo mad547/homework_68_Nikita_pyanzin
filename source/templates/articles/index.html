@@ -34,7 +34,11 @@
                                     class="btn btn-sm btn-outline-danger like-btn"
                                     data-url="{% url 'articles:article-like' article.pk %}"
                                     onclick="event.preventDefault()">
-                                    <span class="like-icon">♡</span>
+                                    {% if article.pk in liked_ids %}
+                                        <span class="like-icon" style="color: #dc3545;">♥</span>
+                                    {% else %}
+                                        <span class="like-icon">♡</span>
+                                    {% endif %}
                                     <span class="likes-count">{{ article.likes_count }}</span>
                                 </button>
                             {% else %}
