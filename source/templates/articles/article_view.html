@@ -14,39 +14,33 @@
                 <figcaption class="blockquote-footer mt-3">
                     Автор: {{ article.author }}
                 </figcaption>
-                <p>Блог: {% if article.blog %}{{ article.blog.title }}{% else %}---{% endif %}</p>
                 <p>Теги: {% for tag in article.tags.all %}{{ tag }} {% endfor %}</p>
             </figure>
         </div>
         <div class="text-end me-3 mb-3">
-            <a href="{% url 'update' article.pk %}" class="btn btn-outline-warning">
+            <a href="{% url 'articles:update' article.pk %}" class="btn btn-outline-warning">
                 <span>Изменить</span><i class="fa-regular fa-pen-to-square ms-2"></i>
             </a>
-            <a href="{% url 'delete' article.pk %}" class="btn btn-outline-danger">
+            <a href="{% url 'articles:delete' article.pk %}" class="btn btn-outline-danger">
                 <i class="fa-regular fa-trash-can"></i>
             </a>
-{#            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#article-{{ article.pk }}-Modal">#}
-{#                <span>Удалить</span><i class="fa-regular fa-trash-can ms-2"></i>#}
-{#            </button>#}
         </div>
     </div>
-        <div class="card my-5">
-        <div class="card-header">
-            Комментарии
-        </div>
+
+    <div class="card my-5">
+        <div class="card-header">Комментарии</div>
         <div class="card-body">
-            {% for comment in article.comments.all %}
+            {% for comment in comments %}
                 <p>{{ forloop.counter }}. {{ comment }}</p>
-                {% empty %}
+            {% empty %}
                 <p>Комментариев нет</p>
             {% endfor %}
         </div>
         <div class="text-end me-3 mb-3">
             <a href="{% url 'articles:comment-create' article.pk %}" class="btn btn-outline-warning">
-                <span>Добавить</span>
+                <span>Добавить комментарий</span>
             </a>
         </div>
     </div>
     {% include 'partial/article_delete_modal.html' with article=article %}
-
 {% endblock %}
