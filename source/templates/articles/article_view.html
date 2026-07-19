@@ -24,10 +24,11 @@
                 <button
                     class="btn btn-sm btn-outline-danger like-btn ms-3"
                     data-url="{% url 'articles:article-like' article.pk %}">
-                    ♥ <span class="likes-count">{{ article.likes_count }}</span>
+                    <span class="like-icon">♡</span>
+                    <span class="likes-count">{{ article.likes_count }}</span>
                 </button>
             {% else %}
-                <span class="ms-3">♥ {{ article.likes_count }}</span>
+                <span class="ms-3">♡ {{ article.likes_count }}</span>
             {% endif %}
             {% if request.user.is_authenticated %}
             <div>
@@ -52,10 +53,11 @@
                         <button
                             class="btn btn-sm btn-outline-danger like-btn"
                             data-url="{% url 'articles:comment-like' comment.pk %}">
-                            ♥ <span class="likes-count">{{ comment.likes_count }}</span>
+                            <span class="like-icon">♡</span>
+                            <span class="likes-count">{{ comment.likes_count }}</span>
                         </button>
                     {% else %}
-                        <span>♥ {{ comment.likes_count }}</span>
+                        <span>♡ {{ comment.likes_count }}</span>
                     {% endif %}
                 </div>
             {% empty %}

@@ -1,13 +1,13 @@
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.views.decorators.http import require_GET
 from django.shortcuts import get_object_or_404
+from django.views.decorators.http import require_http_methods
 
 from articles.models import Article, Comment, ArticleLike, CommentLike
 
 
 @login_required
-@require_GET
+@require_http_methods(["POST"])
 def article_like(request, pk):
     article = get_object_or_404(Article, pk=pk)
     like, created = ArticleLike.objects.get_or_create(
@@ -31,7 +31,7 @@ def article_like(request, pk):
 
 
 @login_required
-@require_GET
+@require_http_methods(["POST"])
 def comment_like(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
     like, created = CommentLike.objects.get_or_create(
