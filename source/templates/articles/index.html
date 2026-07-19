@@ -28,11 +28,18 @@
                             <p>Статус: {{ article.get_status_display }}</p>
                             <span>Автор: {% if article.author %}{{ article.author }}{% else %}---{% endif %}</span>
                         </div>
-                        <div class="d-flex justify-content-between align-items-center me-3 mb-2">
+                        <div class="d-flex justify-content-between align-items-center me-3 mb-2 ms-2">
                             {% if request.user.is_authenticated %}
+                                <button
+                                    class="btn btn-sm btn-outline-danger like-btn"
+                                    data-url="{% url 'articles:article-like' article.pk %}"
+                                    onclick="event.preventDefault()">
+                                    ♥ <span class="likes-count">{{ article.likes_count }}</span>
+                                </button>
                             {% else %}
                                 <span>♥ {{ article.likes_count }}</span>
                             {% endif %}
+                            {% if request.user.is_authenticated %}
                             <div>
                                 <a href="{% url 'articles:update' article.pk %}" class="btn btn-outline-warning btn-sm">
                                     <i class="fa-regular fa-pen-to-square"></i>
@@ -41,6 +48,7 @@
                                     <i class="fa-regular fa-trash-can"></i>
                                 </a>
                             </div>
+                            {% endif %}
                         </div>
                     </div>
                 </a>

@@ -62,13 +62,13 @@ class ArticleCreateView(LoginRequiredMixin, CreateView):
     form_class = ArticleForm
 
 
-class ArticleUpdateView(UpdateView):
+class ArticleUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "articles/article_update.html"
     form_class = ArticleForm
     model = Article
 
 
-class ArticleDeleteView(DeleteView):
+class ArticleDeleteView(LoginRequiredMixin, DeleteView):
     template_name = "articles/delete_confirm.html"
     model = Article
     form_class = ArticleDeleteForm
