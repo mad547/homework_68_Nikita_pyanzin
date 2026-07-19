@@ -28,13 +28,26 @@
                             <p>Статус: {{ article.get_status_display }}</p>
                             <span>Автор: {% if article.author %}{{ article.author }}{% else %}---{% endif %}</span>
                         </div>
-                        <div class="text-end me-3">
-                            <a href="{% url 'articles:update' article.pk %}" class="btn btn-outline-warning">
-                                <i class="fa-regular fa-pen-to-square"></i>
-                            </a>
-                            <a href="{% url 'articles:delete' article.pk %}" class="btn btn-outline-danger">
-                                <i class="fa-regular fa-trash-can"></i>
-                            </a>
+                        <div class="d-flex justify-content-between align-items-center me-3 mb-2">
+                            {% if request.user.is_authenticated %}
+                                <button
+                                    class="btn btn-sm btn-outline-danger like-btn"
+                                    data-url="{% url 'articles:article-like' article.pk %}"
+                                    data-liked="{{ article.likes.filter(user=request.user).exists }}"
+                                    onclick="event.preventDefault()">
+                                    ♥ <span class="likes-count">{{ article.likes_count }}</span>
+                                </button>
+                            {% else %}
+                                <span>♥ {{ article.likes_count }}</span>
+                            {% endif %}
+                            <div>
+                                <a href="{% url 'articles:update' article.pk %}" class="btn btn-outline-warning btn-sm">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </a>
+                                <a href="{% url 'articles:delete' article.pk %}" class="btn btn-outline-danger btn-sm">
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </a>
