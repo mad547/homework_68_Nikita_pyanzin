@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Калькулятор</title>
+</head>
+<body>
+<div class="container py-5">
+    <div class="card calc-card">
+        <div class="calc-header">Калькулятор</div>
+        <div class="card-body p-4">
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Число A</label>
+                <input type="number" id="numA" class="form-control" placeholder="Введите число A">
+            </div>
+            <div class="mb-4">
+                <label class="form-label fw-semibold">Число B</label>
+                <input type="number" id="numB" class="form-control" placeholder="Введите число B">
+            </div>
+            <div class="row g-2 mb-4">
+                <div class="col-6">
+                    <a href="/api/add/" class="btn-calc calc-btn" data-url="/api/add/">Сложить (+)</a>
+                </div>
+                <div class="col-6">
+                    <a href="/api/subtract/" class="btn-calc calc-btn" data-url="/api/subtract/">Вычесть (-)</a>
+                </div>
+                <div class="col-6">
+                    <a href="/api/multiply/" class="btn-calc calc-btn" data-url="/api/multiply/">Умножить (×)</a>
+                </div>
+                <div class="col-6">
+                    <a href="/api/divide/" class="btn-calc calc-btn" data-url="/api/divide/">Разделить (÷)</a>
+                </div>
+            </div>
+            <div class="result-box" id="result">Результат появится здесь</div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'js/calculator.js' %}"></script>
+</body>
+</html>
