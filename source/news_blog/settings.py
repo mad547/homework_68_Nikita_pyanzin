@@ -44,6 +44,8 @@ INSTALLED_APPS = [
 
     'articles',
     'accounts',
+    'api',
+    'webapp',
 
     'django_bootstrap5'
 ]
