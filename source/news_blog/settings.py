@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'api',
     'webapp',
 
-    'django_bootstrap5'
+    'django_bootstrap5',
     'rest_framework',
 ]
 

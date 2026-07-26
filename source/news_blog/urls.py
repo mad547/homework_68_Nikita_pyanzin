@@ -22,6 +22,6 @@ urlpatterns = [
     path('', include('articles.urls', namespace='articles')),
     path('accounts/', include('accounts.urls', namespace='accounts')),
     path('api/', include('api.urls', namespace='api')),
-    path('api/v2/', include('articles.api.urls')),
+    path('api/v2/', include('articles.api_urls')),
     path('', include('webapp.urls', namespace='webapp')),
 ]
